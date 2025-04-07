@@ -9,22 +9,34 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             background-color: #f5f5f5;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         h1, h2 {
             color: #333;
+            text-align: center;
         }
-        .graficos-container {
+        .linha-superior {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
             gap: 20px;
             margin-bottom: 30px;
+        }
+        .linha-inferior {
+            display: flex;
+            justify-content: center;
         }
         .grafico {
             background: white;
             border-radius: 10px;
             padding: 15px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 45%;
+            flex: 1;
+            min-width: 250px;
+        }
+        .grafico-grande {
+            width: 80%;
+            max-width: 800px;
         }
         canvas {
             max-width: 100%;
@@ -34,108 +46,94 @@
 <body>
     <h1>Agenda Tiago Pontes - Janeiro 2024</h1>
     
-    <!-- Gráfico 1: Distribuição de Atividades (Pizza) -->
-    <h2>1. Distribuição de Atividades</h2>
-    <div class="graficos-container">
+    <!-- Linha superior: 3 gráficos de pizza -->
+    <div class="linha-superior">
+        <!-- Gráfico 1 -->
         <div class="grafico">
+            <h2>1. Distribuição de Atividades</h2>
             <canvas id="graficoAtividades"></canvas>
         </div>
-    </div>
-
-    <!-- Gráfico 2: Segmentação das Reuniões (Pizza) -->
-    <h2>2. Segmentação das Reuniões</h2>
-    <div class="graficos-container">
+        
+        <!-- Gráfico 2 -->
         <div class="grafico">
+            <h2>2. Segmentação das Reuniões</h2>
             <canvas id="graficoReunioes"></canvas>
         </div>
-    </div>
-
-    <!-- Gráfico 3: Reuniões por Setor (Pizza) -->
-    <h2>3. Reuniões por Setor</h2>
-    <div class="graficos-container">
+        
+        <!-- Gráfico 3 -->
         <div class="grafico">
+            <h2>3. Reuniões por Setor</h2>
             <canvas id="graficoSetores"></canvas>
         </div>
     </div>
 
-    <!-- Gráfico 4: Dias por Cidade (Colunas) -->
-    <h2>4. Dias por Cidade</h2>
-    <div class="graficos-container">
-        <div class="grafico">
+    <!-- Linha inferior: gráfico de colunas -->
+    <div class="linha-inferior">
+        <div class="grafico grafico-grande">
+            <h2>4. Dias por Cidade</h2>
             <canvas id="graficoCidades"></canvas>
         </div>
     </div>
 
-    <!-- Script do Chart.js + Configurações -->
+    <!-- Script do Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Gráfico 1: Distribuição de Atividades (Pizza)
-        new Chart(
-            document.getElementById('graficoAtividades'),
-            {
-                type: 'pie',
-                data: {
-                    labels: ['Reuniões', 'Tarefas Rotineiras'],
-                    datasets: [{
-                        data: [18, 20],
-                        backgroundColor: ['#FF6384', '#36A2EB']
-                    }]
-                }
+        // Gráfico 1
+        new Chart(document.getElementById('graficoAtividades'), {
+            type: 'pie',
+            data: {
+                labels: ['Reuniões', 'Tarefas Rotineiras'],
+                datasets: [{
+                    data: [18, 20],
+                    backgroundColor: ['#FF6384', '#36A2EB']
+                }]
             }
-        );
+        });
 
-        // Gráfico 2: Segmentação das Reuniões (Pizza)
-        new Chart(
-            document.getElementById('graficoReunioes'),
-            {
-                type: 'pie',
-                data: {
-                    labels: ['Virtuais', 'Presenciais'],
-                    datasets: [{
-                        data: [2, 16],
-                        backgroundColor: ['#FFCE56', '#4BC0C0']
-                    }]
-                }
+        // Gráfico 2
+        new Chart(document.getElementById('graficoReunioes'), {
+            type: 'pie',
+            data: {
+                labels: ['Virtuais', 'Presenciais'],
+                datasets: [{
+                    data: [2, 16],
+                    backgroundColor: ['#FFCE56', '#4BC0C0']
+                }]
             }
-        );
+        });
 
-        // Gráfico 3: Reuniões por Setor (Pizza)
-        new Chart(
-            document.getElementById('graficoSetores'),
-            {
-                type: 'pie',
-                data: {
-                    labels: ['Jurídico', 'Administrativo'],
-                    datasets: [{
-                        data: [2, 0],
-                        backgroundColor: ['#9966FF', '#FF9F40']
-                    }]
-                }
+        // Gráfico 3
+        new Chart(document.getElementById('graficoSetores'), {
+            type: 'pie',
+            data: {
+                labels: ['Jurídico', 'Administrativo'],
+                datasets: [{
+                    data: [2, 0],
+                    backgroundColor: ['#9966FF', '#FF9F40']
+                }]
             }
-        );
+        });
 
-        // Gráfico 4: Dias por Cidade (Colunas)
-        new Chart(
-            document.getElementById('graficoCidades'),
-            {
-                type: 'bar',
-                data: {
-                    labels: ['São Paulo', 'Brasília', 'Recife'],
-                    datasets: [{
-                        label: 'Dias',
-                        data: [1, 8, 9],
-                        backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA']
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+        // Gráfico 4
+        new Chart(document.getElementById('graficoCidades'), {
+            type: 'bar',
+            data: {
+                labels: ['São Paulo', 'Brasília', 'Recife'],
+                datasets: [{
+                    label: 'Dias',
+                    data: [1, 8, 9],
+                    backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
-        );
+        });
     </script>
 </body>
 </html>
