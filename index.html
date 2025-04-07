@@ -41,33 +41,33 @@
     </style>
 </head>
 <body>
-    <h1>Agenda Tiago Pontes - Janeiro 2024</h1>
+    <h1>Agenda Tiago Pontes - Janeiro 2025</h1>
     
-    <!-- Linha superior: 3 gráficos de pizza -->
+    <!-- Linha superior: 3 gráficos de doughnut -->
     <div class="linha-superior">
         <!-- Gráfico 1 -->
         <div class="grafico">
-            <h2>1. Distribuição de Atividades</h2>
+            <h2>Distribuição de Atividades</h2>
             <canvas id="graficoAtividades"></canvas>
         </div>
         
         <!-- Gráfico 2 -->
         <div class="grafico">
-            <h2>2. Segmentação das Reuniões</h2>
+            <h2>Segmentação das Reuniões</h2>
             <canvas id="graficoReunioes"></canvas>
         </div>
         
         <!-- Gráfico 3 -->
         <div class="grafico">
-            <h2>3. Reuniões por Setor</h2>
+            <h2>Reuniões por Setor</h2>
             <canvas id="graficoSetores"></canvas>
         </div>
     </div>
 
-    <!-- Linha inferior: gráfico de colunas (mesma largura que os outros) -->
+    <!-- Linha inferior: gráfico de colunas -->
     <div class="linha-inferior">
         <div class="grafico">
-            <h2>4. Dias por Cidade</h2>
+            <h2>Dias por Cidade</h2>
             <canvas id="graficoCidades"></canvas>
         </div>
     </div>
@@ -75,9 +75,19 @@
     <!-- Script do Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Gráfico 1 - Distribuição de Atividades (Pizza)
+        // Configurações comuns para os gráficos de doughnut
+        const optionsDoughnut = {
+            cutout: '60%',
+            plugins: {
+                legend: {
+                    position: 'right'
+                }
+            }
+        };
+
+        // Gráfico 1 - Distribuição de Atividades (Doughnut)
         new Chart(document.getElementById('graficoAtividades'), {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ['Reuniões', 'Tarefas Rotineiras'],
                 datasets: [{
@@ -85,12 +95,13 @@
                     backgroundColor: ['#FF6384', '#36A2EB'],
                     borderWidth: 1
                 }]
-            }
+            },
+            options: optionsDoughnut
         });
 
-        // Gráfico 2 - Segmentação das Reuniões (Pizza)
+        // Gráfico 2 - Segmentação das Reuniões (Doughnut)
         new Chart(document.getElementById('graficoReunioes'), {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ['Virtuais', 'Presenciais'],
                 datasets: [{
@@ -98,12 +109,13 @@
                     backgroundColor: ['#FFCE56', '#4BC0C0'],
                     borderWidth: 1
                 }]
-            }
+            },
+            options: optionsDoughnut
         });
 
-        // Gráfico 3 - Reuniões por Setor (Pizza)
+        // Gráfico 3 - Reuniões por Setor (Doughnut)
         new Chart(document.getElementById('graficoSetores'), {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ['Jurídico', 'Administrativo'],
                 datasets: [{
@@ -111,7 +123,8 @@
                     backgroundColor: ['#9966FF', '#FF9F40'],
                     borderWidth: 1
                 }]
-            }
+            },
+            options: optionsDoughnut
         });
 
         // Gráfico 4 - Dias por Cidade (Colunas)
@@ -131,6 +144,11 @@
                 scales: {
                     y: {
                         beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
