@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Tiago Pontes - Janeiro 2025</title>
+    <title>Agenda Tiago Pontes - 2025</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,10 +12,44 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        h1, h2 {
+        h1 {
             color: #333;
             text-align: center;
         }
+        
+        /* Estilos das abas */
+        .abas {
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .aba {
+            padding: 10px 20px;
+            background: #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        .aba.ativa {
+            background: white;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Conteúdo das abas */
+        .conteudo-aba {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 0 5px 5px 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .conteudo-aba.ativa {
+            display: block;
+        }
+        
+        /* Estilos dos gráficos (mantidos do anterior) */
         .linha-superior {
             display: flex;
             justify-content: space-between;
@@ -68,49 +102,139 @@
     </style>
 </head>
 <body>
-    <h1>Agenda Tiago Pontes - Janeiro 2025</h1>
+    <h1>Agenda Tiago Pontes - 2025</h1>
     
-    <!-- Linha superior: 3 gráficos de doughnut -->
-    <div class="linha-superior">
-        <!-- Gráfico 1 -->
-        <div class="grafico">
-            <h2>1. Distribuição de Atividades</h2>
-            <div class="grafico-container">
-                <canvas id="graficoAtividades"></canvas>
-                <div class="legenda" id="legendaAtividades"></div>
+    <!-- Abas para os meses -->
+    <div class="abas">
+        <div class="aba ativa" onclick="mostrarAba('jan')">Janeiro</div>
+        <div class="aba" onclick="mostrarAba('fev')">Fevereiro</div>
+        <div class="aba" onclick="mostrarAba('mar')">Março</div>
+    </div>
+    
+    <!-- Conteúdo de Janeiro -->
+    <div id="jan" class="conteudo-aba ativa">
+        <h2>Janeiro 2025</h2>
+        <div class="linha-superior">
+            <div class="grafico">
+                <h3>1. Distribuição de Atividades</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoAtividadesJan"></canvas>
+                    <div class="legenda" id="legendaAtividadesJan"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>2. Segmentação das Reuniões</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoReunioesJan"></canvas>
+                    <div class="legenda" id="legendaReunioesJan"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>3. Reuniões por Setor</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoSetoresJan"></canvas>
+                    <div class="legenda" id="legendaSetoresJan"></div>
+                </div>
             </div>
         </div>
-        
-        <!-- Gráfico 2 -->
-        <div class="grafico">
-            <h2>2. Segmentação das Reuniões</h2>
-            <div class="grafico-container">
-                <canvas id="graficoReunioes"></canvas>
-                <div class="legenda" id="legendaReunioes"></div>
-            </div>
-        </div>
-        
-        <!-- Gráfico 3 -->
-        <div class="grafico">
-            <h2>3. Reuniões por Setor</h2>
-            <div class="grafico-container">
-                <canvas id="graficoSetores"></canvas>
-                <div class="legenda" id="legendaSetores"></div>
+        <div class="linha-inferior">
+            <div class="grafico">
+                <h3>4. Dias por Cidade</h3>
+                <canvas id="graficoCidadesJan"></canvas>
             </div>
         </div>
     </div>
-
-    <!-- Linha inferior: gráfico de colunas -->
-    <div class="linha-inferior">
-        <div class="grafico">
-            <h2>4. Dias por Cidade</h2>
-            <canvas id="graficoCidades"></canvas>
+    
+    <!-- Conteúdo de Fevereiro -->
+    <div id="fev" class="conteudo-aba">
+        <h2>Fevereiro 2025</h2>
+        <div class="linha-superior">
+            <div class="grafico">
+                <h3>1. Distribuição de Atividades</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoAtividadesFev"></canvas>
+                    <div class="legenda" id="legendaAtividadesFev"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>2. Segmentação das Reuniões</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoReunioesFev"></canvas>
+                    <div class="legenda" id="legendaReunioesFev"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>3. Reuniões por Setor</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoSetoresFev"></canvas>
+                    <div class="legenda" id="legendaSetoresFev"></div>
+                </div>
+            </div>
+        </div>
+        <div class="linha-inferior">
+            <div class="grafico">
+                <h3>4. Dias por Cidade</h3>
+                <canvas id="graficoCidadesFev"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Conteúdo de Março -->
+    <div id="mar" class="conteudo-aba">
+        <h2>Março 2025</h2>
+        <div class="linha-superior">
+            <div class="grafico">
+                <h3>1. Distribuição de Atividades</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoAtividadesMar"></canvas>
+                    <div class="legenda" id="legendaAtividadesMar"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>2. Segmentação das Reuniões</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoReunioesMar"></canvas>
+                    <div class="legenda" id="legendaReunioesMar"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>3. Reuniões por Setor</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoSetoresMar"></canvas>
+                    <div class="legenda" id="legendaSetoresMar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="linha-inferior">
+            <div class="grafico">
+                <h3>4. Dias por Cidade</h3>
+                <canvas id="graficoCidadesMar"></canvas>
+            </div>
         </div>
     </div>
 
     <!-- Script do Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Função para alternar entre abas
+        function mostrarAba(abaId) {
+            // Esconde todos os conteúdos
+            document.querySelectorAll('.conteudo-aba').forEach(aba => {
+                aba.classList.remove('ativa');
+            });
+            
+            // Remove a classe 'ativa' de todas as abas
+            document.querySelectorAll('.aba').forEach(aba => {
+                aba.classList.remove('ativa');
+            });
+            
+            // Mostra o conteúdo da aba selecionada
+            document.getElementById(abaId).classList.add('ativa');
+            
+            // Ativa a aba selecionada
+            event.currentTarget.classList.add('ativa');
+        }
+
         // Função para criar legendas personalizadas
         function criarLegenda(legendaId, labels, cores) {
             const container = document.getElementById(legendaId);
@@ -134,104 +258,113 @@
 
         // Configurações comuns para os gráficos de doughnut
         const optionsDoughnut = {
-            cutout: '40%',  // Buraco menor (40% do raio)
+            cutout: '40%',
             plugins: {
                 legend: {
-                    display: false  // Remove a legenda padrão
+                    display: false
                 }
             }
         };
 
-        // Dados e cores para os gráficos
-        const dadosAtividades = {
-            labels: ['Reuniões', 'Tarefas Rotineiras'],
-            data: [18, 20],
-            cores: ['#FF6384', '#36A2EB']
-        };
-
-        const dadosReunioes = {
-            labels: ['Virtuais', 'Presenciais'],
-            data: [2, 16],
-            cores: ['#FFCE56', '#4BC0C0']
-        };
-
-        const dadosSetores = {
-            labels: ['Jurídico', 'Administrativo'],
-            data: [2, 0],
-            cores: ['#9966FF', '#FF9F40']
-        };
-
-        // Gráfico 1 - Distribuição de Atividades (Doughnut)
-        new Chart(document.getElementById('graficoAtividades'), {
-            type: 'doughnut',
-            data: {
-                labels: dadosAtividades.labels,
-                datasets: [{
-                    data: dadosAtividades.data,
-                    backgroundColor: dadosAtividades.cores,
-                    borderWidth: 1
-                }]
-            },
-            options: optionsDoughnut
+        // Dados de exemplo (substitua pelos dados reais)
+        // Janeiro
+        criarGraficosMes('Jan', {
+            atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [18, 20], cores: ['#FF6384', '#36A2EB'] },
+            reunioes: { labels: ['Virtuais', 'Presenciais'], data: [2, 16], cores: ['#FFCE56', '#4BC0C0'] },
+            setores: { labels: ['Jurídico', 'Administrativo'], data: [2, 0], cores: ['#9966FF', '#FF9F40'] },
+            cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [1, 8, 9], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
-        criarLegenda('legendaAtividades', dadosAtividades.labels, dadosAtividades.cores);
 
-        // Gráfico 2 - Segmentação das Reuniões (Doughnut)
-        new Chart(document.getElementById('graficoReunioes'), {
-            type: 'doughnut',
-            data: {
-                labels: dadosReunioes.labels,
-                datasets: [{
-                    data: dadosReunioes.data,
-                    backgroundColor: dadosReunioes.cores,
-                    borderWidth: 1
-                }]
-            },
-            options: optionsDoughnut
+        // Fevereiro (dados de exemplo - substitua)
+        criarGraficosMes('Fev', {
+            atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [15, 22], cores: ['#FF6384', '#36A2EB'] },
+            reunioes: { labels: ['Virtuais', 'Presenciais'], data: [4, 14], cores: ['#FFCE56', '#4BC0C0'] },
+            setores: { labels: ['Jurídico', 'Administrativo'], data: [3, 2], cores: ['#9966FF', '#FF9F40'] },
+            cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [2, 7, 8], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
-        criarLegenda('legendaReunioes', dadosReunioes.labels, dadosReunioes.cores);
 
-        // Gráfico 3 - Reuniões por Setor (Doughnut)
-        new Chart(document.getElementById('graficoSetores'), {
-            type: 'doughnut',
-            data: {
-                labels: dadosSetores.labels,
-                datasets: [{
-                    data: dadosSetores.data,
-                    backgroundColor: dadosSetores.cores,
-                    borderWidth: 1
-                }]
-            },
-            options: optionsDoughnut
+        // Março (dados de exemplo - substitua)
+        criarGraficosMes('Mar', {
+            atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [20, 18], cores: ['#FF6384', '#36A2EB'] },
+            reunioes: { labels: ['Virtuais', 'Presenciais'], data: [5, 12], cores: ['#FFCE56', '#4BC0C0'] },
+            setores: { labels: ['Jurídico', 'Administrativo'], data: [4, 1], cores: ['#9966FF', '#FF9F40'] },
+            cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [3, 6, 10], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
-        criarLegenda('legendaSetores', dadosSetores.labels, dadosSetores.cores);
 
-        // Gráfico 4 - Dias por Cidade (Colunas)
-        new Chart(document.getElementById('graficoCidades'), {
-            type: 'bar',
-            data: {
-                labels: ['São Paulo', 'Brasília', 'Recife'],
-                datasets: [{
-                    label: 'Dias',
-                    data: [1, 8, 9],
-                    backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+        // Função para criar todos os gráficos de um mês
+        function criarGraficosMes(mes, dados) {
+            // Gráfico 1 - Distribuição de Atividades (Doughnut)
+            new Chart(document.getElementById(`graficoAtividades${mes}`), {
+                type: 'doughnut',
+                data: {
+                    labels: dados.atividades.labels,
+                    datasets: [{
+                        data: dados.atividades.data,
+                        backgroundColor: dados.atividades.cores,
+                        borderWidth: 1
+                    }]
                 },
-                plugins: {
-                    legend: {
-                        display: false
+                options: optionsDoughnut
+            });
+            criarLegenda(`legendaAtividades${mes}`, dados.atividades.labels, dados.atividades.cores);
+
+            // Gráfico 2 - Segmentação das Reuniões (Doughnut)
+            new Chart(document.getElementById(`graficoReunioes${mes}`), {
+                type: 'doughnut',
+                data: {
+                    labels: dados.reunioes.labels,
+                    datasets: [{
+                        data: dados.reunioes.data,
+                        backgroundColor: dados.reunioes.cores,
+                        borderWidth: 1
+                    }]
+                },
+                options: optionsDoughnut
+            });
+            criarLegenda(`legendaReunioes${mes}`, dados.reunioes.labels, dados.reunioes.cores);
+
+            // Gráfico 3 - Reuniões por Setor (Doughnut)
+            new Chart(document.getElementById(`graficoSetores${mes}`), {
+                type: 'doughnut',
+                data: {
+                    labels: dados.setores.labels,
+                    datasets: [{
+                        data: dados.setores.data,
+                        backgroundColor: dados.setores.cores,
+                        borderWidth: 1
+                    }]
+                },
+                options: optionsDoughnut
+            });
+            criarLegenda(`legendaSetores${mes}`, dados.setores.labels, dados.setores.cores);
+
+            // Gráfico 4 - Dias por Cidade (Colunas)
+            new Chart(document.getElementById(`graficoCidades${mes}`), {
+                type: 'bar',
+                data: {
+                    labels: dados.cidades.labels,
+                    datasets: [{
+                        label: 'Dias',
+                        data: dados.cidades.data,
+                        backgroundColor: dados.cidades.cores,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
