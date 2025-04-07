@@ -5,17 +5,241 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda Tiago Pontes - 2025</title>
     <style>
-        /* [Manter todo o CSS anterior igual] */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        .abas {
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .aba {
+            padding: 10px 20px;
+            background: #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        .aba.ativa {
+            background: white;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .conteudo-aba {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 0 5px 5px 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .conteudo-aba.ativa {
+            display: block;
+        }
+        .linha-superior {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .linha-inferior {
+            display: flex;
+            justify-content: center;
+        }
+        .grafico {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 250px;
+            max-width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .grafico-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .legenda {
+            margin-top: 15px;
+            text-align: center;
+            width: 100%;
+        }
+        .item-legenda {
+            display: inline-block;
+            margin: 5px 10px;
+            font-size: 14px;
+        }
+        .cor-legenda {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+        h3 {
+            margin-top: 0;
+            text-align: center;
+            color: #444;
+        }
     </style>
 </head>
 <body>
-    <!-- [Manter todo o HTML anterior igual] -->
+    <h1>Agenda Tiago Pontes - 2025</h1>
+    
+    <div class="abas">
+        <div class="aba ativa" onclick="mostrarAba('jan')">Janeiro</div>
+        <div class="aba" onclick="mostrarAba('fev')">Fevereiro</div>
+        <div class="aba" onclick="mostrarAba('mar')">Março</div>
+    </div>
+    
+    <div id="jan" class="conteudo-aba ativa">
+        <h2>Janeiro 2025</h2>
+        <div class="linha-superior">
+            <div class="grafico">
+                <h3>Distribuição de Atividades</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoAtividadesJan"></canvas>
+                    <div class="legenda" id="legendaAtividadesJan"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>Segmentação das Reuniões</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoReunioesJan"></canvas>
+                    <div class="legenda" id="legendaReunioesJan"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>Reuniões por Setor</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoSetoresJan"></canvas>
+                    <div class="legenda" id="legendaSetoresJan"></div>
+                </div>
+            </div>
+        </div>
+        <div class="linha-inferior">
+            <div class="grafico">
+                <h3>Dias por Cidade</h3>
+                <canvas id="graficoCidadesJan"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div id="fev" class="conteudo-aba">
+        <h2>Fevereiro 2025</h2>
+        <div class="linha-superior">
+            <div class="grafico">
+                <h3>Distribuição de Atividades</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoAtividadesFev"></canvas>
+                    <div class="legenda" id="legendaAtividadesFev"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>Segmentação das Reuniões</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoReunioesFev"></canvas>
+                    <div class="legenda" id="legendaReunioesFev"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>Reuniões por Setor</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoSetoresFev"></canvas>
+                    <div class="legenda" id="legendaSetoresFev"></div>
+                </div>
+            </div>
+        </div>
+        <div class="linha-inferior">
+            <div class="grafico">
+                <h3>Dias por Cidade</h3>
+                <canvas id="graficoCidadesFev"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mar" class="conteudo-aba">
+        <h2>Março 2025</h2>
+        <div class="linha-superior">
+            <div class="grafico">
+                <h3>Distribuição de Atividades</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoAtividadesMar"></canvas>
+                    <div class="legenda" id="legendaAtividadesMar"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>Segmentação das Reuniões</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoReunioesMar"></canvas>
+                    <div class="legenda" id="legendaReunioesMar"></div>
+                </div>
+            </div>
+            <div class="grafico">
+                <h3>Reuniões por Setor</h3>
+                <div class="grafico-container">
+                    <canvas id="graficoSetoresMar"></canvas>
+                    <div class="legenda" id="legendaSetoresMar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="linha-inferior">
+            <div class="grafico">
+                <h3>Dias por Cidade</h3>
+                <canvas id="graficoCidadesMar"></canvas>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // [Manter as funções mostrarAba() e criarLegenda() iguais]
+        // Função para alternar entre abas
+        function mostrarAba(abaId) {
+            document.querySelectorAll('.conteudo-aba').forEach(aba => {
+                aba.classList.remove('ativa');
+            });
+            document.querySelectorAll('.aba').forEach(aba => {
+                aba.classList.remove('ativa');
+            });
+            document.getElementById(abaId).classList.add('ativa');
+            event.currentTarget.classList.add('ativa');
+        }
 
-        // Configurações comuns para os gráficos de doughnut
+        // Função para criar legendas
+        function criarLegenda(legendaId, labels, cores) {
+            const container = document.getElementById(legendaId);
+            container.innerHTML = '';
+            labels.forEach((label, index) => {
+                const item = document.createElement('div');
+                item.className = 'item-legenda';
+                const cor = document.createElement('span');
+                cor.className = 'cor-legenda';
+                cor.style.backgroundColor = cores[index];
+                const texto = document.createTextNode(label);
+                item.appendChild(cor);
+                item.appendChild(texto);
+                container.appendChild(item);
+            });
+        }
+
+        // Configuração dos gráficos
         const optionsDoughnut = {
             cutout: '40%',
             plugins: {
@@ -33,7 +257,7 @@
             cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [1, 8, 9], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
 
-        // Dados de Fevereiro (com seus valores)
+        // Dados de Fevereiro (seus valores)
         criarGraficosMes('Fev', {
             atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [19, 22], cores: ['#FF6384', '#36A2EB'] },
             reunioes: { labels: ['Virtuais', 'Presenciais'], data: [4, 15], cores: ['#FFCE56', '#4BC0C0'] },
@@ -41,7 +265,7 @@
             cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [0, 6, 10], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
 
-        // Dados de Março (com seus valores)
+        // Dados de Março (seus valores)
         criarGraficosMes('Mar', {
             atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [24, 31], cores: ['#FF6384', '#36A2EB'] },
             reunioes: { labels: ['Virtuais', 'Presenciais'], data: [14, 10], cores: ['#FFCE56', '#4BC0C0'] },
@@ -49,10 +273,10 @@
             cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [3, 8, 10], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
 
-        // FUNÇÃO CORRIGIDA - Aqui estava o erro principal
+        // Função para criar gráficos (CORRIGIDA)
         function criarGraficosMes(mes, dados) {
-            // Gráfico 1 - Distribuição de Atividades (Doughnut)
-            new Chart(document.getElementById(`graficoAtividades${mes}`), {
+            // Gráfico 1
+            new Chart(document.getElementById('graficoAtividades'+mes), {
                 type: 'doughnut',
                 data: {
                     labels: dados.atividades.labels,
@@ -65,8 +289,8 @@
                 options: optionsDoughnut
             });
 
-            // Gráfico 2 - Segmentação das Reuniões (Doughnut)
-            new Chart(document.getElementById(`graficoReunioes${mes}`), {
+            // Gráfico 2
+            new Chart(document.getElementById('graficoReunioes'+mes), {
                 type: 'doughnut',
                 data: {
                     labels: dados.reunioes.labels,
@@ -79,8 +303,8 @@
                 options: optionsDoughnut
             });
 
-            // Gráfico 3 - Reuniões por Setor (Doughnut)
-            new Chart(document.getElementById(`graficoSetores${mes}`), {
+            // Gráfico 3
+            new Chart(document.getElementById('graficoSetores'+mes), {
                 type: 'doughnut',
                 data: {
                     labels: dados.setores.labels,
@@ -93,8 +317,8 @@
                 options: optionsDoughnut
             });
 
-            // Gráfico 4 - Dias por Cidade (Colunas)
-            new Chart(document.getElementById(`graficoCidades${mes}`), {
+            // Gráfico 4
+            new Chart(document.getElementById('graficoCidades'+mes), {
                 type: 'bar',
                 data: {
                     labels: dados.cidades.labels,
@@ -121,9 +345,9 @@
             });
 
             // Criar legendas
-            criarLegenda(`legendaAtividades${mes}`, dados.atividades.labels, dados.atividades.cores);
-            criarLegenda(`legendaReunioes${mes}`, dados.reunioes.labels, dados.reunioes.cores);
-            criarLegenda(`legendaSetores${mes}`, dados.setores.labels, dados.setores.cores);
+            criarLegenda('legendaAtividades'+mes, dados.atividades.labels, dados.atividades.cores);
+            criarLegenda('legendaReunioes'+mes, dados.reunioes.labels, dados.reunioes.cores);
+            criarLegenda('legendaSetores'+mes, dados.setores.labels, dados.setores.cores);
         }
     </script>
 </body>
