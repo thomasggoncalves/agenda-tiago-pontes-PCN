@@ -33,10 +33,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             flex: 1;
             min-width: 250px;
-        }
-        .grafico-grande {
-            width: 80%;
-            max-width: 800px;
+            max-width: 30%;
         }
         canvas {
             max-width: 100%;
@@ -67,9 +64,9 @@
         </div>
     </div>
 
-    <!-- Linha inferior: gráfico de colunas -->
+    <!-- Linha inferior: gráfico de colunas (mesma largura que os outros) -->
     <div class="linha-inferior">
-        <div class="grafico grafico-grande">
+        <div class="grafico">
             <h2>4. Dias por Cidade</h2>
             <canvas id="graficoCidades"></canvas>
         </div>
@@ -78,43 +75,46 @@
     <!-- Script do Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Gráfico 1
+        // Gráfico 1 - Distribuição de Atividades (Pizza)
         new Chart(document.getElementById('graficoAtividades'), {
             type: 'pie',
             data: {
                 labels: ['Reuniões', 'Tarefas Rotineiras'],
                 datasets: [{
                     data: [18, 20],
-                    backgroundColor: ['#FF6384', '#36A2EB']
+                    backgroundColor: ['#FF6384', '#36A2EB'],
+                    borderWidth: 1
                 }]
             }
         });
 
-        // Gráfico 2
+        // Gráfico 2 - Segmentação das Reuniões (Pizza)
         new Chart(document.getElementById('graficoReunioes'), {
             type: 'pie',
             data: {
                 labels: ['Virtuais', 'Presenciais'],
                 datasets: [{
                     data: [2, 16],
-                    backgroundColor: ['#FFCE56', '#4BC0C0']
+                    backgroundColor: ['#FFCE56', '#4BC0C0'],
+                    borderWidth: 1
                 }]
             }
         });
 
-        // Gráfico 3
+        // Gráfico 3 - Reuniões por Setor (Pizza)
         new Chart(document.getElementById('graficoSetores'), {
             type: 'pie',
             data: {
                 labels: ['Jurídico', 'Administrativo'],
                 datasets: [{
                     data: [2, 0],
-                    backgroundColor: ['#9966FF', '#FF9F40']
+                    backgroundColor: ['#9966FF', '#FF9F40'],
+                    borderWidth: 1
                 }]
             }
         });
 
-        // Gráfico 4
+        // Gráfico 4 - Dias por Cidade (Colunas)
         new Chart(document.getElementById('graficoCidades'), {
             type: 'bar',
             data: {
@@ -122,7 +122,8 @@
                 datasets: [{
                     label: 'Dias',
                     data: [1, 8, 9],
-                    backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA']
+                    backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA'],
+                    borderWidth: 1
                 }]
             },
             options: {
