@@ -49,7 +49,7 @@
             display: block;
         }
         
-        /* Estilos dos gráficos (mantidos do anterior) */
+        /* Estilos dos gráficos */
         .linha-superior {
             display: flex;
             justify-content: space-between;
@@ -98,6 +98,11 @@
             height: 12px;
             margin-right: 5px;
             border-radius: 3px;
+        }
+        h3 {
+            margin-top: 0;
+            text-align: center;
+            color: #444;
         }
     </style>
 </head>
@@ -266,8 +271,7 @@
             }
         };
 
-        // Dados de exemplo (substitua pelos dados reais)
-        // Janeiro
+        // Dados de Janeiro (mantidos do exemplo anterior)
         criarGraficosMes('Jan', {
             atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [18, 20], cores: ['#FF6384', '#36A2EB'] },
             reunioes: { labels: ['Virtuais', 'Presenciais'], data: [2, 16], cores: ['#FFCE56', '#4BC0C0'] },
@@ -275,20 +279,20 @@
             cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [1, 8, 9], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
 
-        // Fevereiro (dados de exemplo - substitua)
+        // Dados de Fevereiro (com seus valores)
         criarGraficosMes('Fev', {
-            atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [15, 22], cores: ['#FF6384', '#36A2EB'] },
-            reunioes: { labels: ['Virtuais', 'Presenciais'], data: [4, 14], cores: ['#FFCE56', '#4BC0C0'] },
-            setores: { labels: ['Jurídico', 'Administrativo'], data: [3, 2], cores: ['#9966FF', '#FF9F40'] },
-            cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [2, 7, 8], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
+            atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [19, 22], cores: ['#FF6384', '#36A2EB'] },
+            reunioes: { labels: ['Virtuais', 'Presenciais'], data: [4, 15], cores: ['#FFCE56', '#4BC0C0'] },
+            setores: { labels: ['Jurídico', 'Administrativo'], data: [0, 1], cores: ['#9966FF', '#FF9F40'] },
+            cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [0, 6, 10], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
 
-        // Março (dados de exemplo - substitua)
+        // Dados de Março (com seus valores)
         criarGraficosMes('Mar', {
-            atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [20, 18], cores: ['#FF6384', '#36A2EB'] },
-            reunioes: { labels: ['Virtuais', 'Presenciais'], data: [5, 12], cores: ['#FFCE56', '#4BC0C0'] },
-            setores: { labels: ['Jurídico', 'Administrativo'], data: [4, 1], cores: ['#9966FF', '#FF9F40'] },
-            cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [3, 6, 10], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
+            atividades: { labels: ['Reuniões', 'Tarefas Rotineiras'], data: [24, 31], cores: ['#FF6384', '#36A2EB'] },
+            reunioes: { labels: ['Virtuais', 'Presenciais'], data: [14, 10], cores: ['#FFCE56', '#4BC0C0'] },
+            setores: { labels: ['Jurídico', 'Administrativo'], data: [0, 1], cores: ['#9966FF', '#FF9F40'] },
+            cidades: { labels: ['São Paulo', 'Brasília', 'Recife'], data: [3, 8, 10], cores: ['#8AC249', '#FAA43A', '#5DA5DA'] }
         });
 
         // Função para criar todos os gráficos de um mês
