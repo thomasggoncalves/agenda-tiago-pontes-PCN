@@ -195,11 +195,12 @@
             });
             document.getElementById(mes).classList.add('ativa');
             event.currentTarget.classList.add('ativa');
+
+            
         }
 
-        // Apenas Janeiro está configurado (os outros meses não foram implementados)
-        document.addEventListener('DOMContentLoaded', function() {
-            // Gráficos de Janeiro (FUNCIONANDO)
+        function iniJan() {
+             // Gráficos de Janeiro (FUNCIONANDO)
             new Chart(document.getElementById('graficoAtividadesJan'), {
                 type: 'doughnut',
                 data: {
@@ -291,7 +292,9 @@
             criarLegenda('legendaReunioesJan', ['Virtuais', 'Presenciais'], ['#FFCE56', '#4BC0C0']);
             criarLegenda('legendaSetoresJan', ['Jurídico', 'Administrativo'], ['#9966FF', '#FF9F40']);
 
+        }
 
+        function iniFev() {
              // Gráficos de FEVEREIRO (FUNCIONANDO)
             new Chart(document.getElementById('graficoAtividadesFev'), {
                 type: 'doughnut',
@@ -384,6 +387,10 @@
             criarLegenda('legendaReunioesFev', ['Virtuais', 'Presenciais'], ['#FFCE56', '#4BC0C0']);
             criarLegenda('legendaSetoresFev', ['Jurídico', 'Administrativo'], ['#9966FF', '#FF9F40']);
 
+        }
+
+        function iniMar() {
+            
             
              // Gráficos de MARÇO (FUNCIONANDO)
             new Chart(document.getElementById('graficoAtividadesMar'), {
@@ -476,6 +483,11 @@
             criarLegenda('legendaAtividadesMar', ['Reuniões', 'Tarefas Rotineiras'], ['#FF6384', '#36A2EB']);
             criarLegenda('legendaReunioesMar', ['Virtuais', 'Presenciais'], ['#FFCE56', '#4BC0C0']);
             criarLegenda('legendaSetoresMar', ['Jurídico', 'Administrativo'], ['#9966FF', '#FF9F40']);
+        }
+        
+        // Apenas Janeiro está configurado (os outros meses não foram implementados)
+        document.addEventListener('DOMContentLoaded', function() {
+            iniJan();
         });
 
         // Função para criar legendas
