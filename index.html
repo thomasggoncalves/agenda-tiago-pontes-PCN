@@ -185,395 +185,200 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Controle das abas
-        function mostrarAba(mes) {
-            document.querySelectorAll('.conteudo-aba').forEach(aba => {
-                aba.classList.remove('ativa');
-            });
-            document.querySelectorAll('.aba').forEach(aba => {
-                aba.classList.remove('ativa');
-            });
-            document.getElementById(mes).classList.add('ativa');
-            event.currentTarget.classList.add('ativa');
+        // Dados globais para todos os meses
+const dadosMensais = {
+    jan: {
+        atividades: {
+            labels: ['Reuniões', 'Tarefas Rotineiras'],
+            data: [18, 20],
+            cores: ['#FF6384', '#36A2EB']
+        },
+        reunioes: {
+            labels: ['Virtuais', 'Presenciais'],
+            data: [2, 16],
+            cores: ['#FFCE56', '#4BC0C0']
+        },
+        setores: {
+            labels: ['Jurídico', 'Administrativo'],
+            data: [2, 0],
+            cores: ['#9966FF', '#FF9F40']
+        },
+        cidades: {
+            labels: ['São Paulo', 'Brasília', 'Recife'],
+            data: [1, 8, 9],
+            cores: ['#8AC249', '#FAA43A', '#5DA5DA']
+        }
+    },
+    fev: {
+        atividades: {
+            labels: ['Reuniões', 'Tarefas Rotineiras'],
+            data: [15, 22],
+            cores: ['#FF6384', '#36A2EB']
+        },
+        reunioes: {
+            labels: ['Virtuais', 'Presenciais'],
+            data: [3, 12],
+            cores: ['#FFCE56', '#4BC0C0']
+        },
+        setores: {
+            labels: ['Jurídico', 'Administrativo'],
+            data: [3, 2],
+            cores: ['#9966FF', '#FF9F40']
+        },
+        cidades: {
+            labels: ['São Paulo', 'Brasília', 'Recife'],
+            data: [2, 7, 8],
+            cores: ['#8AC249', '#FAA43A', '#5DA5DA']
+        }
+    },
+    mar: {
+        atividades: {
+            labels: ['Reuniões', 'Tarefas Rotineiras'],
+            data: [20, 18],
+            cores: ['#FF6384', '#36A2EB']
+        },
+        reunioes: {
+            labels: ['Virtuais', 'Presenciais'],
+            data: [4, 16],
+            cores: ['#FFCE56', '#4BC0C0']
+        },
+        setores: {
+            labels: ['Jurídico', 'Administrativo'],
+            data: [5, 1],
+            cores: ['#9966FF', '#FF9F40']
+        },
+        cidades: {
+            labels: ['São Paulo', 'Brasília', 'Recife'],
+            data: [3, 9, 8],
+            cores: ['#8AC249', '#FAA43A', '#5DA5DA']
+        }
+    }
+};
 
-            if(mes == 'jan') {
-                iniJan();
-            } else if(mes == 'fev') {
-                iniFev();
-            } else if(mes == 'mar') {
-                iniMar();
+// Configurações dos gráficos
+const configGraficos = {
+    atividades: {
+        type: 'doughnut',
+        options: {
+            cutout: '40%',
+            plugins: { legend: { display: false } }
+        }
+    },
+    reunioes: {
+        type: 'doughnut',
+        options: {
+            cutout: '40%',
+            plugins: { legend: { display: false } }
+        }
+    },
+    setores: {
+        type: 'doughnut',
+        options: {
+            cutout: '40%',
+            plugins: { legend: { display: false } }
+        }
+    },
+    cidades: {
+        type: 'bar',
+        options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true } },
+            plugins: { legend: { display: false } }
+        }
+    }
+};
+
+// Função para inicializar um mês específico
+function inicializarMes(mes) {
+    // Tipos de gráficos disponíveis
+    const tiposGraficos = ['atividades', 'reunioes', 'setores', 'cidades'];
+    
+    // Destruir gráficos existentes primeiro
+    tiposGraficos.forEach(tipo => {
+        const canvasId = `grafico${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${mes.charAt(0).toUpperCase() + mes.slice(1)}`;
+        const canvas = document.getElementById(canvasId);
+        
+        if (canvas) {
+            const chartInstance = Chart.getChart(canvas);
+            if (chartInstance) {
+                chartInstance.destroy();
             }
-            
         }
-
-        function iniJan() {
-            // IDs dos elementos canvas
-            const chartIds = [
-                'graficoAtividadesJan',
-                'graficoReunioesJan',
-                'graficoSetoresJan',
-                'graficoCidadesJan'
-            ];
+    });
+    
+    // Criar novos gráficos
+    tiposGraficos.forEach(tipo => {
+        const canvasId = `grafico${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${mes.charAt(0).toUpperCase() + mes.slice(1)}`;
+        const canvas = document.getElementById(canvasId);
         
-            // Destruir gráficos existentes
-            chartIds.forEach(id => {
-                const canvas = document.getElementById(id);
-                if (canvas) {
-                    // Verificar se já existe um gráfico no canvas
-                    const chartInstance = Chart.getChart(canvas);
-                    if (chartInstance) {
-                        chartInstance.destroy();
-                    }
-                }
+        if (canvas && dadosMensais[mes] && dadosMensais[mes][tipo]) {
+            const dados = dadosMensais[mes][tipo];
+            
+            new Chart(canvas, {
+                type: configGraficos[tipo].type,
+                data: {
+                    labels: dados.labels,
+                    datasets: [{
+                        data: dados.data,
+                        backgroundColor: dados.cores,
+                        borderWidth: 1,
+                        ...(tipo === 'cidades' ? { label: 'Dias' } : {})
+                    }]
+                },
+                options: configGraficos[tipo].options
             });
             
-             // Gráficos de Janeiro (FUNCIONANDO)
-            new Chart(document.getElementById('graficoAtividadesJan'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Reuniões', 'Tarefas Rotineiras'],
-                    datasets: [{
-                        data: [18, 20],
-                        backgroundColor: ['#FF6384', '#36A2EB'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoReunioesJan'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Virtuais', 'Presenciais'],
-                    datasets: [{
-                        data: [2, 16],
-                        backgroundColor: ['#FFCE56', '#4BC0C0'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoSetoresJan'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Jurídico', 'Administrativo'],
-                    datasets: [{
-                        data: [2, 0],
-                        backgroundColor: ['#9966FF', '#FF9F40'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoCidadesJan'), {
-                type: 'bar',
-                data: {
-                    labels: ['São Paulo', 'Brasília', 'Recife'],
-                    datasets: [{
-                        label: 'Dias',
-                        data: [1, 8, 9],
-                        backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            // Legendas de Janeiro
-            criarLegenda('legendaAtividadesJan', ['Reuniões', 'Tarefas Rotineiras'], ['#FF6384', '#36A2EB']);
-            criarLegenda('legendaReunioesJan', ['Virtuais', 'Presenciais'], ['#FFCE56', '#4BC0C0']);
-            criarLegenda('legendaSetoresJan', ['Jurídico', 'Administrativo'], ['#9966FF', '#FF9F40']);
-
+            // Criar legendas (exceto para gráfico de cidades)
+            if (tipo !== 'cidades') {
+                const legendaId = `legenda${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${mes.charAt(0).toUpperCase() + mes.slice(1)}`;
+                criarLegenda(legendaId, dados.labels, dados.cores);
+            }
         }
+    });
+}
 
-        function iniFev() {
-          // IDs dos elementos canvas
-            const chartIds = [
-                'graficoAtividadesFev',
-                'graficoReunioesFev',
-                'graficoSetoresFev',
-                'graficoCidadesFev'
-            ];
+// Função para mostrar aba (modificada para ser genérica)
+function mostrarAba(mes) {
+    document.querySelectorAll('.conteudo-aba').forEach(aba => {
+        aba.classList.remove('ativa');
+    });
+    document.querySelectorAll('.aba').forEach(aba => {
+        aba.classList.remove('ativa');
+    });
+    
+    document.getElementById(mes).classList.add('ativa');
+    event.currentTarget.classList.add('ativa');
+    
+    inicializarMes(mes);
+}
+
+// Função para criar legendas (mantida como estava)
+function criarLegenda(legendaId, labels, cores) {
+    const container = document.getElementById(legendaId);
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    labels.forEach((label, index) => {
+        const item = document.createElement('div');
+        item.className = 'item-legenda';
         
-            // Destruir gráficos existentes
-            chartIds.forEach(id => {
-                const canvas = document.getElementById(id);
-                if (canvas) {
-                    // Verificar se já existe um gráfico no canvas
-                    const chartInstance = Chart.getChart(canvas);
-                    if (chartInstance) {
-                        chartInstance.destroy();
-                    }
-                }
-            });
-
-            
-             // Gráficos de FEVEREIRO (FUNCIONANDO)
-            new Chart(document.getElementById('graficoAtividadesFev'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Reuniões', 'Tarefas Rotineiras'],
-                    datasets: [{
-                        data: [18, 20],
-                        backgroundColor: ['#FF6384', '#36A2EB'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoReunioesFev'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Virtuais', 'Presenciais'],
-                    datasets: [{
-                        data: [2, 16],
-                        backgroundColor: ['#FFCE56', '#4BC0C0'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoSetoresFev'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Jurídico', 'Administrativo'],
-                    datasets: [{
-                        data: [2, 0],
-                        backgroundColor: ['#9966FF', '#FF9F40'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoCidadesFev'), {
-                type: 'bar',
-                data: {
-                    labels: ['São Paulo', 'Brasília', 'Recife'],
-                    datasets: [{
-                        label: 'Dias',
-                        data: [1, 8, 9],
-                        backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            // Legendas de FEVEREIRO
-            criarLegenda('legendaAtividadesFev', ['Reuniões', 'Tarefas Rotineiras'], ['#FF6384', '#36A2EB']);
-            criarLegenda('legendaReunioesFev', ['Virtuais', 'Presenciais'], ['#FFCE56', '#4BC0C0']);
-            criarLegenda('legendaSetoresFev', ['Jurídico', 'Administrativo'], ['#9966FF', '#FF9F40']);
-
-        }
-
-        function iniMar() {
-              // IDs dos elementos canvas
-            const chartIds = [
-                'graficoAtividadesMar',
-                'graficoReunioesMar',
-                'graficoSetoresMar',
-                'graficoCidadesMar'
-            ];
+        const cor = document.createElement('span');
+        cor.className = 'cor-legenda';
+        cor.style.backgroundColor = cores[index];
         
-            // Destruir gráficos existentes
-            chartIds.forEach(id => {
-                const canvas = document.getElementById(id);
-                if (canvas) {
-                    // Verificar se já existe um gráfico no canvas
-                    const chartInstance = Chart.getChart(canvas);
-                    if (chartInstance) {
-                        chartInstance.destroy();
-                    }
-                }
-            });
-            
-             // Gráficos de MARÇO (FUNCIONANDO)
-            new Chart(document.getElementById('graficoAtividadesMar'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Reuniões', 'Tarefas Rotineiras'],
-                    datasets: [{
-                        data: [18, 20],
-                        backgroundColor: ['#FF6384', '#36A2EB'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
+        item.appendChild(cor);
+        item.appendChild(document.createTextNode(label));
+        container.appendChild(item);
+    });
+}
 
-            new Chart(document.getElementById('graficoReunioesMar'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Virtuais', 'Presenciais'],
-                    datasets: [{
-                        data: [2, 16],
-                        backgroundColor: ['#FFCE56', '#4BC0C0'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoSetoresMar'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Jurídico', 'Administrativo'],
-                    datasets: [{
-                        data: [2, 0],
-                        backgroundColor: ['#9966FF', '#FF9F40'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    cutout: '40%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('graficoCidadesMar'), {
-                type: 'bar',
-                data: {
-                    labels: ['São Paulo', 'Brasília', 'Recife'],
-                    datasets: [{
-                        label: 'Dias',
-                        data: [1, 8, 9],
-                        backgroundColor: ['#8AC249', '#FAA43A', '#5DA5DA'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            // Legendas de MARÇO
-            criarLegenda('legendaAtividadesMar', ['Reuniões', 'Tarefas Rotineiras'], ['#FF6384', '#36A2EB']);
-            criarLegenda('legendaReunioesMar', ['Virtuais', 'Presenciais'], ['#FFCE56', '#4BC0C0']);
-            criarLegenda('legendaSetoresMar', ['Jurídico', 'Administrativo'], ['#9966FF', '#FF9F40']);
-        }
-        
-        // Apenas Janeiro está configurado (os outros meses não foram implementados)
-        document.addEventListener('DOMContentLoaded', function() {
-            iniJan();
-        });
-
-        // Função para criar legendas
-        function criarLegenda(legendaId, labels, cores) {
-            const container = document.getElementById(legendaId);
-            container.innerHTML = '';
-            
-            labels.forEach((label, index) => {
-                const item = document.createElement('div');
-                item.className = 'item-legenda';
-                
-                const cor = document.createElement('span');
-                cor.className = 'cor-legenda';
-                cor.style.backgroundColor = cores[index];
-                
-                item.appendChild(cor);
-                item.appendChild(document.createTextNode(label));
-                container.appendChild(item);
-            });
-        }
+// Inicializar a página com o primeiro mês ativo
+document.addEventListener('DOMContentLoaded', function() {
+    // Encontra o primeiro mês ativo ou usa 'jan' como padrão
+    const mesAtivo = document.querySelector('.aba.ativa')?.getAttribute('onclick')?.match(/'(\w+)'/)?.[1] || 'jan';
+    inicializarMes(mesAtivo);
+});
     </script>
 </body>
 </html>
