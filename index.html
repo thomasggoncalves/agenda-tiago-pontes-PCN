@@ -207,6 +207,26 @@
         }
 
         function iniJan() {
+            // IDs dos elementos canvas
+            const chartIds = [
+                'graficoAtividadesJan',
+                'graficoReunioesJan',
+                'graficoSetoresJan',
+                'graficoCidadesJan'
+            ];
+        
+            // Destruir gráficos existentes
+            chartIds.forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    // Verificar se já existe um gráfico no canvas
+                    const chartInstance = Chart.getChart(canvas);
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                    }
+                }
+            });
+            
              // Gráficos de Janeiro (FUNCIONANDO)
             new Chart(document.getElementById('graficoAtividadesJan'), {
                 type: 'doughnut',
@@ -302,6 +322,27 @@
         }
 
         function iniFev() {
+          // IDs dos elementos canvas
+            const chartIds = [
+                'graficoAtividadesFev',
+                'graficoReunioesFev',
+                'graficoSetoresFev',
+                'graficoCidadesFev'
+            ];
+        
+            // Destruir gráficos existentes
+            chartIds.forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    // Verificar se já existe um gráfico no canvas
+                    const chartInstance = Chart.getChart(canvas);
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                    }
+                }
+            });
+
+            
              // Gráficos de FEVEREIRO (FUNCIONANDO)
             new Chart(document.getElementById('graficoAtividadesFev'), {
                 type: 'doughnut',
@@ -397,7 +438,25 @@
         }
 
         function iniMar() {
-            
+              // IDs dos elementos canvas
+            const chartIds = [
+                'graficoAtividadesMar',
+                'graficoReunioesMar',
+                'graficoSetoresMar',
+                'graficoCidadesMar'
+            ];
+        
+            // Destruir gráficos existentes
+            chartIds.forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    // Verificar se já existe um gráfico no canvas
+                    const chartInstance = Chart.getChart(canvas);
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                    }
+                }
+            });
             
              // Gráficos de MARÇO (FUNCIONANDO)
             new Chart(document.getElementById('graficoAtividadesMar'), {
